@@ -1,4 +1,13 @@
 import os
+import streamlit.components.v1 as components
+
+components.html(
+    '<meta name="google-site-verification" content="fuQh8aJhfsletvQPPTwqyA0rWnB7w0nXtUD1Gfhf4" />',
+    height=0,
+)
+
+import streamlit as st
+from streamlit_mic_recorder import mic_recorder
 import streamlit as st
 from streamlit_mic_recorder import mic_recorder
 
