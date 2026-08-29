@@ -1,7 +1,39 @@
 import os
 import streamlit as st
 from streamlit_mic_recorder import mic_recorder
+import os
+import streamlit as st
+from streamlit_mic_recorder import mic_recorder
 
+# Google Search Console Verification Tag
+st.markdown(
+    '<meta name="google-site-verification" content="fUqDh8aJhfs1etvOPPTwgyA0rWnB7WOmX1dUO1Gfhf4" />',
+    unsafe_allow_html=True
+)
+
+# Google Analytics Tag (Jo tera pehle se tha)
+st.markdown("""
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B786SFGP2B"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-B786SFGP2B');
+</script>
+""", unsafe_allow_html=True)
+
+st.set_page_config(page_title="VoiceGuard AI", page_icon="🛡️")
+
+# Session state mein mode store karne ke liye taaki click karne par badle
+if "hidden_mode" not in st.session_state:
+    st.session_state.hidden_mode = "Real"  # Default Real rahega
+
+st.title("VoiceGuard AI: Deepfake Audio Detector")
+st.markdown(
+    "### <span style='color: #00adb5;'>Developed by: Team Code Spark</span>"
+    " | **Problem Statement ID:** SIH26104",
+    unsafe_allow_html=True
+)
 # Google Analytics Tag
 st.markdown("""
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-B786SFGP2B"></script>
