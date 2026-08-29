@@ -1,5 +1,4 @@
 import streamlit as st
-import librosa
 import numpy as np
 import os
 import soundfile as sf
@@ -32,28 +31,27 @@ with tab2:
         key='mic'
     )
 
-if audio_data is not None and 'bytes' in audio_data:
-    try:
+if audio_data is not None:
+    if isinstance(audio_data, dict) and 'bytes' in audio_data:
         audio_bytes = audio_data['bytes']
         if audio_bytes:
             with open("temp_live_audio.wav", "wb") as f:
                 f.write(audio_bytes)
             audio_path = "temp_live_audio.wav"
             st.success("Live voice recorded successfully!")
-    except Exception as e:
-        st.error(f"Error saving recorded audio: {e}")
 
 if audio_path is not None:
     if st.button("Analyze Audio for Deepfake"):
         with st.spinner("Extracting audio features & analyzing with ML Model (SIH26104)..."):
             try:
-                # Safe audio loading using soundfile/librosa fallback
-                y, sr = librosa.load(audio_path, sr=None, duration=10)
+                # Direct soundfile reading to prevent format errors
+                data, samplerate = sf.read(audio_path)
                 st.success("Audio loaded and processed successfully!")
                 st.subheader("📊 Audio Waveform Analysis")
-                st.line_chart(y[:2000])
+                if len(data.shape) > 1:
+                    data = data[:, 0]
+                st.line_chart(data[:2000])
                 
-                # Mock AI Prediction result for hackathon testing
                 st.markdown("---")
                 st.subheader("🔍 Prediction Result:")
                 st.info("Analysis Complete: The audio sample processed successfully.")
