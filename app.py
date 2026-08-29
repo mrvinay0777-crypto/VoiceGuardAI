@@ -1,16 +1,11 @@
 import os
-import streamlit.components.v1 as components
+import streamlit as st
+from streamlit_mic_recorder import mic_recorder
 
-components.html(
+st.markdown(
     '<meta name="google-site-verification" content="fuQh8aJhfsletvQPPTwqyA0rWnB7w0nXtUD1Gfhf4" />',
-    height=0,
+    unsafe_allow_html=True,
 )
-
-import streamlit as st
-from streamlit_mic_recorder import mic_recorder
-import streamlit as st
-from streamlit_mic_recorder import mic_recorder
-
 st.set_page_config(page_title="VoiceGuard AI", page_icon="🛡️")
 
 # Session state mein mode store karne ke liye taaki click karne par badle
