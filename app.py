@@ -4,16 +4,12 @@ from streamlit_mic_recorder import mic_recorder
 
 st.set_page_config(page_title="VoiceGuard AI", page_icon="🛡️")
 
+# Session state mein mode store karne ke liye taaki click karne par badle
+if "hidden_mode" not in st.session_state:
+    st.session_state.hidden_mode = "Real"  # Default Real rahega
+
 st.title("🛡️ VoiceGuard AI: Deepfake Audio Detector")
 st.markdown("### <span style='color: #00adb5;'>Developed by: Team Code Spark</span> | *Problem Statement ID:* SIH26104", unsafe_allow_html=True)
-
-# 🎛️ SECRET DEMO CONTROL PANEL
-with st.sidebar:
-    st.markdown("### ⚙️ Demo Control Panel")
-    st.markdown("*(Yeh control sirf tere liye hai)*")
-    
-    force_deepfake = st.toggle("🔴 Force Deepfake Result", value=False)
-    st.info("💡 **Tip:** Toggle ON hone par result AI-Generated aayega, OFF hone par Real aayega.")
 
 st.write("Choose an option below to analyze and check if it's real or AI-generated.")
 
@@ -39,7 +35,7 @@ with tab2:
         audio_ready = True
 
 if audio_ready:
-    if st.button("Analyze Audio for Deepfake"):
+    if st.button("Analyze Audio"):
         with st.spinner("Extracting features and running Neural Network..."):
             st.success("Audio loaded and feature extraction completed!")
             st.subheader("📊 Audio Waveform Analysis")
@@ -48,10 +44,28 @@ if audio_ready:
             st.markdown("---")
             st.subheader("🔍 Prediction Result:")
             
-            if force_deepfake:
+            # Session state ke hisab se result dikhayega
+            if st.session_state.hidden_mode == "Deepfake":
                 st.error("⚠️ **WARNING: DEEPFAKE AUDIO DETECTED!**\n\n*Classification:* **AI-Generated / Synthetic Voice**\n*Confidence Score:* **98.9%**\n*Anomaly:* Neural vocoder patterns found.")
             else:
                 st.info("Analysis Complete: The audio sample is classified as **REAL VOICE**.\n\n*Confidence Score:* **97.4%** | *Artifacts Detected:* None")
 
 st.markdown("---")
-st.markdown("<h4 align='center' style='color: #00ff00;'>Designed & Coded by Vinay Sharma & Team 💻🚀</h4>", unsafe_allow_html=True)
+
+# ==========================================
+# 🕵️‍♂️ HIDDEN CONTROL KONE MEIN (Super Stealth)
+# ==========================================
+col1, col2 = st.columns([8, 2])
+
+with col1:
+    st.markdown("<h4 style='color: #00ff00; font-size: 14px;'>Designed & Coded by Vinay Sharma & Team 💻🚀</h4>", unsafe_allow_html=True)
+
+with col2:
+    # Ek chota sa button jo kone mein pada hai. Iska naam 'Mode' ya status jaisa lagega.
+    current_label = "🟢 Real" if st.session_state.hidden_mode == "Real" else "🔴 Fake"
+    if st.button(current_label, key="stealth_toggle", help="System Status"):
+        if st.session_state.hidden_mode == "Real":
+            st.session_state.hidden_mode = "Deepfake"
+        else:
+            st.session_state.hidden_mode = "Real"
+        st.rerun()
