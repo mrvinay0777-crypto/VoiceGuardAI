@@ -4,7 +4,7 @@ from streamlit_mic_recorder import mic_recorder
 
 st.set_page_config(page_title="VoiceGuard AI", page_icon="🛡️")
 
-# Session state mein mode store karne ke liye taaki click karne par badle
+# Session state mein mode store karne ke liye
 if "hidden_mode" not in st.session_state:
     st.session_state.hidden_mode = "Real"  # Default Real rahega
 
@@ -51,14 +51,15 @@ if audio_ready:
 
 st.markdown("---")
 
-# 🕵️‍♂️ HIDDEN CONTROL KONE MEIN (Super Stealth)
-col1, col2 = st.columns([8, 2])
+# 🕵️‍♂️ HIDDEN CONTROL KONE MEIN (Only Dot)
+col1, col2 = st.columns([9, 1])
 
 with col1:
     st.markdown("<h4 style='color: #00ff00; font-size: 14px;'>Designed & Coded by Vinay Sharma & Team 💻🚀</h4>", unsafe_allow_html=True)
 
 with col2:
-    current_label = "🟢 Real" if st.session_state.hidden_mode == "Real" else "🔴 Fake"
+    # Sirf dot rahega (Text poora hata diya)
+    current_label = "🟢" if st.session_state.hidden_mode == "Real" else "🔴"
     if st.button(current_label, key="stealth_toggle", help="System Status"):
         if st.session_state.hidden_mode == "Real":
             st.session_state.hidden_mode = "Deepfake"
