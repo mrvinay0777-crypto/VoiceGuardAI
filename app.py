@@ -32,6 +32,7 @@ with tab2:
     )
     if audio_data is not None:
         st.success("Live voice recorded successfully!")
+        st.audio(audio_data['bytes'], format='audio/wav')
         audio_ready = True
 
 if audio_ready:
@@ -55,10 +56,9 @@ st.markdown("---")
 col1, col2 = st.columns([9, 1])
 
 with col1:
-    st.markdown("<h4 style='color: #00ff00; font-size: 14px;'>Designed & Coded by Vinay Sharma & Team 💻🚀</h4>", unsafe_allow_html=True)
+    st.markdown("<h4 style='color: #00ff00; font-size: 14px;'>Deployment and Execution by Vinay Sharma 💻🚀</h4>", unsafe_allow_html=True)
 
 with col2:
-    # Sirf dot rahega (Text poora hata diya)
     current_label = "🟢" if st.session_state.hidden_mode == "Real" else "🔴"
     if st.button(current_label, key="stealth_toggle", help="System Status"):
         if st.session_state.hidden_mode == "Real":
